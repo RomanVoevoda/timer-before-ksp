@@ -1,0 +1,35 @@
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+html{
+  font-size: 62.5%;
+  box-sizing: border-box;
+  color-scheme: dark light;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+
+body, area, menu, ul, a {
+  all: unset;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+img, picture, svg, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input {
+  outline: none;
+}
