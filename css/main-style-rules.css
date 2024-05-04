@@ -18,10 +18,14 @@ body, area, menu, ul, a {
 }
 
 body {
+  position: relative;
   min-height: 100vh;
-  min-width: 100vw;
+  min-width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, rgba(54,54,54,0.95) 0%, rgba(20,16,16,0.95) 100%);
 }
 
 img, picture, svg, video {

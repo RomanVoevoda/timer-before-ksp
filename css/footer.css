@@ -1,0 +1,7 @@
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 3.5rem;
+  background: linear-gradient(180deg, rgba(54,54,54,1) 0%, rgba(54,54,54,0.95) 50%, rgba(54,54,54,1) 100%);
+}
