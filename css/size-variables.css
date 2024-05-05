@@ -1,4 +1,5 @@
-:root{
-  --timer-font-size: 4rem;
+:root {
+  --timer-font-size: 3rem;
+  --bigger-font-size: 2.5rem;
   --normal-font-size: 2.5rem;
 }
