@@ -6,9 +6,8 @@ let endDate = new Date('2077-01-01');
 
 function showDaysPassed() {
   let daysPassed = getPassedDays(startDate);
-  let lastSymbolOfPassedDays = String(daysPassed)[String(daysPassed).length - 1];
 
-  dialogueContainerSpan.innerText = `${daysPassed}` + ' ' + `${returnCorrectWord(lastSymbolOfPassedDays, days)}`;
+  dialogueContainerSpan.innerText = `${daysPassed}`;
 }
 
 function getPassedDays(startingDate) {
@@ -27,8 +26,8 @@ let years = ['лет', 'год', 'года', 'года', 'года', 'лет', '
 let months = ['месяцев', 'месяц', 'месяца', 'месяца', 'месяца', 'месяцев', 'месяцев', 'месяцев', 'месяцев', 'месяцев', 'месяцев', 'месяцев'];
 let days = ['дней', 'день', 'дня', 'дня', 'дня', 'дней', 'дней', 'дней', 'дней', 'дней'];
 let hours = ['часов', 'час', 'часа', 'часа', 'часа', 'часов', 'часов', 'часов', 'часов', 'часов'];
-let minutes = ['минут', 'минута', 'минуты', 'минуты', 'минуты', 'минут', 'минут', 'минут', 'минут', 'минут'];
-let seconds = ['секунд', 'секунда', 'секунды', 'секунды', 'секунды', 'секунд', 'секунд', 'секунд', 'секунд', 'секунд'];
+let minutes = ['минут', 'минуту', 'минуты', 'минуты', 'минуты', 'минут', 'минут', 'минут', 'минут', 'минут'];
+let seconds = ['секунд', 'секунду', 'секунды', 'секунды', 'секунды', 'секунд', 'секунд', 'секунд', 'секунд', 'секунд'];
 
 function refreshTimer(endingDate) {
   let diff = new Date((endingDate - new Date()) + Number(new Date('0000-01-01')));
@@ -36,7 +35,7 @@ function refreshTimer(endingDate) {
   let yearsBeforeEnd = String(diff.getFullYear())[String(diff.getFullYear()).length - 1];
   let monthsBeforeEnd = String(diff.getMonth());
   let daysBeforeEnd = String(diff.getDate())[String(diff.getDate()).length - 1];
-  let hoursBeforeEnd = String(diff.getHours())[String(diff.getHours()).length - 1];
+  let hoursBeforeEnd = (10 <= diff.getHours() && diff.getHours() < 20) ? '9' : String(diff.getHours())[String(diff.getHours()).length - 1];
   let minutesBeforeEnd = (10 <= diff.getMinutes() && diff.getMinutes() < 20) ? '9' : String(diff.getMinutes())[String(diff.getMinutes()).length - 1];
   let secondsBeforeEnd = (10 <= diff.getSeconds() && diff.getSeconds() < 20) ? '9' : String(diff.getSeconds())[String(diff.getSeconds()).length - 1];
 
@@ -67,5 +66,3 @@ function returnCorrectWord(string, arr) {
     case  '11': return arr[11];
   }
 }
-
-setInterval(refreshTimer, 1000, endDate);

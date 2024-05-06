@@ -86,6 +86,7 @@
   padding: 2rem;
   font-size: var(--bigger-font-size);
   text-indent: 0.7rem;
+  color: #222831;
   background-color: #f8f8f8;
   box-shadow: 0 0 0.5rem 0.5rem rgba(20,16,16,0.5), -0.4rem 0.4rem 0.5rem 0 rgba(248, 248, 248, 1);
   border-radius: 1.5rem;
