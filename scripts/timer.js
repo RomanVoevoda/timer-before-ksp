@@ -44,46 +44,34 @@ class Timer {
   }
 
   refreshTimerDisplay(spansArray) {
-    let currentSeconds = this._currentTimeBeforeEnd.getSeconds();
-    let currentMinutes = this._currentTimeBeforeEnd.getMinutes();
-    let currentHours = this._currentTimeBeforeEnd.getHours();
-    let currentDays = this._currentTimeBeforeEnd.getDate();
-    let currentMonths = this._currentTimeBeforeEnd.getMonth();
+    let conditions = [
+      this._currentTimeBeforeEnd.getSeconds() == 0, 
+      this._currentTimeBeforeEnd.getMinutes() == 0,
+      this._currentTimeBeforeEnd.getHours() == 0, 
+      this._currentTimeBeforeEnd.getDate() == 0, 
+      this._currentTimeBeforeEnd.getMonth() == 0
+    ];
 
-    if(currentSeconds == 0) {
-      this.trigger('minutesChange', spansArray);
+    let triggers = [
+      this.trigger('minutesChange', spansArray),
+      this.trigger('hoursChange', spansArray),
+      this.trigger('daysChange', spansArray),
+      this.trigger('monthsChange', spansArray),
+      this.trigger('yearsChange', spansArray)
+    ];
+
+    let deep = 1;
+
+    let deepDiveInTriggers = function func() {
+      if(!conditions.slice(0, deep).includes(false)) {
+        triggers[deep - 1];
+        deep++;
+
+        return func();
+      }
     }
 
-    if(currentSeconds == 0 && currentMinutes == 0) {
-      this.trigger('hoursChange', spansArray);
-    }
-
-    if(
-      currentSeconds == 0 &&
-      currentMinutes == 0 &&
-      currentHours == 0
-    ) {
-      this.trigger('daysChange', spansArray);
-    }
-
-    if(
-      currentSeconds == 0 &&
-      currentMinutes == 0 &&
-      currentHours == 0 &&
-      currentDays == 0
-    ) {
-      this.trigger('monthsChange', spansArray);
-    }
-    
-    if(
-      currentSeconds == 0 &&
-      currentMinutes == 0 &&
-      currentHours == 0 &&
-      currentDays == 0 &&
-      currentMonths == 0
-    ) {
-      this.trigger('yearsChange', spansArray);
-    }
+    deepDiveInTriggers();
   }
 
   showYearsBeforeEnd(span) {
