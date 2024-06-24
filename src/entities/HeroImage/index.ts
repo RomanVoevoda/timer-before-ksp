@@ -1,0 +1,1 @@
+export { showDaysPassed } from './lib/HeroImageHelpers';

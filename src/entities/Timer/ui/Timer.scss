@@ -1,0 +1,15 @@
+@import '../../../shared/styles/size-variables.scss';
+
+.timer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 2rem;
+
+  p {
+    font-size: $timer-font-size;
+    color: rgba(66, 184, 131, 0.8);
+    text-align: center;
+    padding: 2rem;
+  }
+}

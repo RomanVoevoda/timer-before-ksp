@@ -1,30 +1,7 @@
-'use strict'
+import { spansForDate } from '../consts/TimerConsts';
+import { eventMixin } from '../../../shared/index';
 
-const dialogueContainerSpan = document.querySelector('.person-dialogue-container p span');
-const timerContainerParagraph = document.querySelector('.timer-container p');
-
-let startDate = new Date('2022-12-18');
-let endDate = new Date('2077-01-01');
-
-function showDaysPassed() {
-  let daysPassed = getPassedDays(startDate);
-
-  dialogueContainerSpan.innerText = `${daysPassed}`;
-}
-
-function getPassedDays(startingDate) {
-  let passedDays = 0;
-  let cloneOfDate = new Date(+startingDate);
-
-  while(Number(cloneOfDate) < Number( new Date )) {
-    cloneOfDate.setDate( cloneOfDate.getDate() + 1);
-    passedDays++;
-  }
-
-  return passedDays;
-}
-
-class Timer {
+export class Timer extends eventMixin {
   static years = ['лет', 'год', 'года', 'года', 'года', 'лет', 'лет', 'лет', 'лет', 'лет'];
   static months = ['месяцев', 'месяц', 'месяца', 'месяца', 'месяца', 'месяцев', 'месяцев', 'месяцев', 'месяцев', 'месяцев', 'месяцев', 'месяцев'];
   static days = ['дней', 'день', 'дня', 'дня', 'дня', 'дней', 'дней', 'дней', 'дней', 'дней'];
@@ -32,10 +9,11 @@ class Timer {
   static minutes = ['минут', 'минуту', 'минуты', 'минуты', 'минуты', 'минут', 'минут', 'минут', 'минут', 'минут'];
   static seconds = ['секунд', 'секунду', 'секунды', 'секунды', 'секунды', 'секунд', 'секунд', 'секунд', 'секунд', 'секунд'];
 
-  _currentTimeBeforeEnd = '';
+  private _currentTimeBeforeEnd;
 
-  constructor(endingDate) {
-    this._currentTimeBeforeEnd = new Date((endingDate - new Date() ) + Number( new Date('0000-01-01') ));
+  constructor(endingDate: Date) {
+    super();
+    this._currentTimeBeforeEnd = new Date(( Number( endingDate ) - Number( new Date() ) ) + Number( new Date('0000-01-01') ));
   }
 
   changeTimeBeforeEnd() {
@@ -43,7 +21,7 @@ class Timer {
     this.trigger('timeChange', spansForDate);
   }
 
-  refreshTimerDisplay(spansArray) {
+  refreshTimerDisplay(spansArray: NodeListOf<Element>) {
     let conditions = [
       this._currentTimeBeforeEnd.getSeconds() == 0, 
       this._currentTimeBeforeEnd.getMinutes() == 0,
@@ -74,34 +52,35 @@ class Timer {
     deepDiveInTriggers();
   }
 
-  showYearsBeforeEnd(span) {
-    span.innerHTML = this.year;
+  showYearsBeforeEnd(span: Element) {
+    if(this.year) span.innerHTML = this.year;
   }
 
-  showMonthsBeforeEnd(span) {
-    span.innerHTML = this.month;
+  showMonthsBeforeEnd(span: Element) {
+    if(this.month) span.innerHTML = this.month;
   }
 
-  showDaysBeforeEnd(span) {
-    span.innerHTML = this.day;
+  showDaysBeforeEnd(span: Element) {
+    if(this.day) span.innerHTML = this.day;
   }
 
-  showHoursBeforeEnd(span) {
-    span.innerHTML = this.hour;
+  showHoursBeforeEnd(span: Element) {
+    if(this.hour) span.innerHTML = this.hour;
   }
 
-  showMinutesBeforeEnd(span) {
-    span.innerHTML = this.minute;
+  showMinutesBeforeEnd(span: Element) {
+    if(this.minute) span.innerHTML = this.minute;
   }
 
-  showSecondsBeforeEnd(span) {
-    span.innerHTML = this.second;
+  showSecondsBeforeEnd(span: Element) {
+    if(this.second) span.innerHTML = this.second;
   }
 
   get year() {
     let yearsBeforeEnd = this._currentTimeBeforeEnd.getFullYear();
+    let lastNumber = String(yearsBeforeEnd).at(-1);
 
-    return yearsBeforeEnd + ' ' + Timer.years[ String(yearsBeforeEnd).at(-1) ];
+    return yearsBeforeEnd + ' ' + Timer.years[ Number(lastNumber) ];
   }
 
   get month() {
@@ -112,58 +91,29 @@ class Timer {
 
   get day() {
     let daysBeforeEnd = this._currentTimeBeforeEnd.getDate();
+    let lastNumber = (10 <= daysBeforeEnd && daysBeforeEnd < 20) ? 9 : String(daysBeforeEnd).at(-1);
 
-    return daysBeforeEnd + ' ' + Timer.days[ (10 <= daysBeforeEnd && daysBeforeEnd < 20) ? 9 : String(daysBeforeEnd).at(-1) ];
+    return daysBeforeEnd + ' ' + Timer.days[ Number(lastNumber) ];
   }
 
   get hour() {
     let hoursBeforeEnd = this._currentTimeBeforeEnd.getHours();
+    let lastNumber = (10 <= hoursBeforeEnd && hoursBeforeEnd < 20) ? 9 : String(hoursBeforeEnd).at(-1);
 
-    return hoursBeforeEnd + ' ' + Timer.hours[ (10 <= hoursBeforeEnd && hoursBeforeEnd < 20) ? 9 : String(hoursBeforeEnd).at(-1) ];
+    return hoursBeforeEnd + ' ' + Timer.hours[ Number(lastNumber) ];
   }
 
   get minute() {
     let minutesBeforeEnd = this._currentTimeBeforeEnd.getMinutes();
+    let lastNumber = (10 <= minutesBeforeEnd && minutesBeforeEnd < 20) ? 9 : String(minutesBeforeEnd).at(-1);
 
-    return minutesBeforeEnd + ' ' + Timer.minutes[ (10 <= minutesBeforeEnd && minutesBeforeEnd < 20) ? 9 : String(minutesBeforeEnd).at(-1) ];
+    return minutesBeforeEnd + ' ' + Timer.minutes[ Number(lastNumber) ];
   }
 
   get second() {
     let secondsBeforeEnd = this._currentTimeBeforeEnd.getSeconds();
+    let lastNumber = (10 <= secondsBeforeEnd && secondsBeforeEnd < 20) ? 9 : String(secondsBeforeEnd).at(-1);
 
-    return secondsBeforeEnd + ' ' + Timer.seconds[ (10 <= secondsBeforeEnd && secondsBeforeEnd < 20) ? 9 : String(secondsBeforeEnd).at(-1) ];
+    return secondsBeforeEnd + ' ' + Timer.seconds[ Number(lastNumber) ];
   }
-}
-
-let eventMixin = {
-
-	on(eventName, handler) {
-		if(!this._eventHandlers) this._eventHandlers = {};
-		if(!this._eventHandlers[eventName]) {
-			this._eventHandlers[eventName] = [];
-		}
-		
-		this._eventHandlers[eventName].push(handler);
-	},
-	
-	off(eventName, handler) {
-		let handlers = this._eventHandlers && this._eventHandlers[eventName];
-		
-		if(!handlers) return;
-		
-		for(let i = 0; i < handlers.length; i++) {
-			if(handlers[i] === handler) {
-				handlers.splice(i--, 1);
-			}
-		}
-	},
-
-  
-  trigger(eventName, ...args) {
-	  if(!this._eventHandlers || !this._eventHandlers[eventName]) {
-		  return; 
-		}
-		
-		this._eventHandlers[eventName].forEach(handler => handler.apply(this, args));
-	}
 }

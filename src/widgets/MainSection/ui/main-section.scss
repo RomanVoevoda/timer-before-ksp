@@ -1,0 +1,8 @@
+@import '../../../entities/HeroImage/ui/HeroImage.scss';
+@import '../../../entities/Timer/ui/Timer.scss';
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 7rem);
+}

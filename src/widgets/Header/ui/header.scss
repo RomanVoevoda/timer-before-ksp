@@ -1,3 +1,5 @@
+@import '../../../shared/styles/size-variables.scss';
+
 header {
   position: fixed;
   top: 0;
@@ -7,9 +9,9 @@ header {
   justify-content: center;
   align-items: center;
   background: linear-gradient(180deg, rgba(54,54,54,1) 0%, rgba(54,54,54,0.95) 50%, rgba(54,54,54,1) 100%);
-}
 
-header p {
-  font-size: var(--normal-font-size);
-  color: #e3e3e3;
+  p {
+    font-size: $normal-font-size;
+    color: #e3e3e3;
+  }
 }

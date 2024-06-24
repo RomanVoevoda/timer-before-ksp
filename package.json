@@ -1,0 +1,37 @@
+{
+  "name": "timer-before-ksp",
+  "version": "1.0.0",
+  "description": "Это самый обычный таймер, который показывает время до конца света![ждувидео](https://github.com/RomanVoevoda/timer-before-ksp/assets/158479881/0c9462c5-ef97-4e44-866e-ae67ec384e6b)",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "webpack --env mode=development",
+    "build:prod": "webpack --env mode=production",
+    "start": "webpack serve"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/webpack": "^5.28.5",
+    "@types/webpack-dev-server": "^4.7.2",
+    "css-loader": "^7.1.2",
+    "html-webpack-plugin": "^5.6.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "sass": "^1.77.6",
+    "sass-loader": "^14.2.1",
+    "style-loader": "^4.0.0",
+    "ts-loader": "^9.5.1",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}

@@ -1,8 +1,6 @@
-'use strict'
-const spansForDate = document.querySelectorAll('.span-for-timer-date');
-let timerBeforeEnd = new Timer(endDate);
-
-Object.assign(Timer.prototype, eventMixin);
+import { showDaysPassed } from '../../../entities/HeroImage/index';
+import { spansForDate, timerBeforeEnd } from '../../../entities/Timer/index';
+import '../ui/MainPage.scss';
 
 timerBeforeEnd.on('timeChange', () => timerBeforeEnd.refreshTimerDisplay(spansForDate));
 
@@ -35,7 +33,7 @@ window.addEventListener('load', () => {
   timerBeforeEnd.showSecondsBeforeEnd(spansForDate[5]);
 
   setInterval(() => {
-    timerBeforeEnd.changeTimeBeforeEnd(spansForDate);
+    timerBeforeEnd.changeTimeBeforeEnd();
     timerBeforeEnd.showSecondsBeforeEnd(spansForDate[5]);
   }, 1000);
 
