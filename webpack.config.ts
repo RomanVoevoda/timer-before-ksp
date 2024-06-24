@@ -1,60 +1,24 @@
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+import {buildWebpack} from "./config/build/buildWebpack";
 import webpack from 'webpack';
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
-
-type Mode = 'production' | 'development';
+import { BuildMode, BuildPaths } from "./config/build/types/types";
 
 interface EnvVariables {
-	mode: Mode;
+	mode: BuildMode;
   port: number;
 }
 
 export default (env: EnvVariables) => {
-  const isDev = env.mode === 'development';
+  const paths: BuildPaths = {
+    output: 'C:/Users/Voevodich/Desktop/ksp/timer-before-ksp/build',
+    entry: './src/pages/Main/lib/MainPage.ts',
+    html: 'public/index.html'
+  }
 
-	const config: webpack.Configuration = {
-		mode: env.mode ?? 'development',
-		entry: './src/pages/Main/lib/MainPage.ts',
-	  output: {
-	    path: 'C:/Users/Voevodich/Desktop/ksp/timer-before-ksp/build',
-	    filename: 'bundle.[contenthash].js',
-	    clean: true
-	  },
-
-    plugins: [
-			new HtmlWebpackPlugin({ template: 'public/index.html' }),
-      isDev && new webpack.ProgressPlugin(),
-      !isDev && new MiniCssExtractPlugin({
-        filename: 'css/styles.[contenthash:8].css',
-        chunkFilename: 'css/styles.[contenthash:8].css',
-      })
-		],
-
-    module: {
-      rules: [
-        //Порядок в лоадерах важен!!!
-        {
-          test: /\.s[ac]ss$/i,
-          use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
-        },
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
-
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-    },
-    devtool: isDev ? 'inline-source-map' : false,
-    devServer: {
-      port: env.port ?? 5000,
-      open: true
-    }
-	}
+  const config: webpack.Configuration = buildWebpack({
+    port: env.port ?? 3000,
+    mode: env.mode ?? 'development',
+    paths
+  });
 	
 	return config;
 };
